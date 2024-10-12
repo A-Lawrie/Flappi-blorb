@@ -8,6 +8,7 @@ public class PipeSpawnScript : MonoBehaviour
     public float spawnRate = 4;
     private float timer = 0;
     public float heightOffset = 10;
+    
     // Start is called before the first frame update
     void Start()
     {
