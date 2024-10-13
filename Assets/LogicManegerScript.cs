@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 public class LogicManegerScript : MonoBehaviour
 {
     public int playerScore;
+    public int highScore = 0;
     public Text scoreText;
+    public Text highScoreText;
     public GameObject gameOverScreen;
     public AudioSource audioSource;
     public AudioClip scoreSound;
@@ -15,6 +17,10 @@ public class LogicManegerScript : MonoBehaviour
 
     void Start()
     {
+        //Using player prefs for consistent storage
+        highScore = PlayerPrefs.GetInt("Highscore: ",0);
+        highScoreText.text = "Highscore: "+ highScore.ToString();
+
         if (audioSource == null)
         {
             audioSource = GetComponent<AudioSource>();
@@ -37,6 +43,12 @@ public class LogicManegerScript : MonoBehaviour
 
     public void gameOver()
     {
+        if(playerScore > highScore)
+        {
+            highScore = playerScore;
+            PlayerPrefs.SetInt("Highscore: ",playerScore);
+            PlayerPrefs.Save();
+        }
         gameOverScreen.SetActive(true);
         audioSource.volume = 0.29f;
         PlaySound(gameOverSound);
